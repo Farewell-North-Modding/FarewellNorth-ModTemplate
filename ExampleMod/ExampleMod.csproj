@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<!-- Install location - can be defined as a user variable `FarewellNorthLocation` to avoid editing this file when collaborating. -->
+		<FarewellNorthLocation Condition="!Exists('$(FarewellNorthLocation)/GameAssembly.dll')"><!-- Replace this comment with your game install location --></FarewellNorthLocation>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+		<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+		<GenerateAssemblyTrademarkAttribute>false</GenerateAssemblyTrademarkAttribute>
+		<GenerateAssemblyCultureAttribute>false</GenerateAssemblyCultureAttribute>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="$(FarewellNorthLocation)\MelonLoader\net6\*.dll" Exclude="$(FarewellNorthLocation)\MelonLoader\net6\System.Text.Json.dll" />
+		<Reference Include="$(FarewellNorthLocation)\MelonLoader\Il2CppAssemblies\*.dll" />
+	</ItemGroup>
+	<ItemGroup Label="Cross-Mod Dependencies">
+		<Reference Include="$(FarewellNorthLocation)\Mods\FarewellCore.dll"></Reference>
+	</ItemGroup>
+	<Target Name="CopyMod" AfterTargets="PostBuildEvent">
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(FarewellNorthLocation)\Mods\" />
+	</Target>
+</Project>
